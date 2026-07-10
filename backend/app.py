@@ -23,12 +23,12 @@ def home():
 @app.route("/tasks", methods=["GET"])
 def get_tasks():
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM task")
+    cursor.execute("SELECT * FROM tasks")
     result = cursor.fetchall()
     cursor.close()
     return jsonify(result), 200
 
-# Add a task
+# Add a new task
 @app.route("/tasks", methods=["POST"])
 def add_task():
     data = request.get_json()
@@ -38,7 +38,7 @@ def add_task():
 
     cursor = connection.cursor()
     cursor.execute(
-        "INSERT INTO task (task) VALUES (%s)",
+        "INSERT INTO tasks (task) VALUES (%s)",
         (data["task"],)
     )
     cursor.close()
